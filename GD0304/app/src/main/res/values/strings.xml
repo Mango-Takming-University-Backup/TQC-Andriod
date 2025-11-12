@@ -1,0 +1,32 @@
+<resources>
+  <string name="app_name">手機網路流量統計</string>
+
+  <string name="label_url">網址</string>
+  <string name="hint_url">http://</string>
+  <string name="btn_parse">傳輸API</string>
+  <string name="btn_reset">重設</string>
+
+  <string name="lost_connection">失去網路連線</string>
+  <string name="wifi_connected">Wi-Fi 已連線</string>
+  <string name="connection_error">無法找到可用連線，請檢查網路連線</string>
+  <string name="connection_ok">網路已啟用，可載入API</string>
+  <string name="str_parsing">查詢API中，請稍候</string>
+  <string name="str_parsing_ok">解析成功</string>
+  <string name="str_user_choose">你選擇的是：</string>
+
+  <string name="received">
+		<u>已接收</u>
+	</string>
+	<string name="sent">
+		<u>已傳送</u>
+	</string>
+  <string name="latest">最新累計</string>
+  <string name="previous">前次紀錄</string>
+  <string name="delta">差異</string>
+  <string name="device"><i>(device)</i></string>
+
+  <string name="hello_world">Hello world!</string>
+  <string name="action_settings">Settings</string>
+
+  <string name="err_need_permission">請同意儲存裝置權限，再重開程式</string>
+</resources>
