@@ -23,7 +23,10 @@
       android:name=".DownloadReceiver"
       android:exported="true">
       <!--  加入intent-filter，捕捉DownloadManager下載完成之廣播訊息-->
-
+      <intent-filter>
+        <action
+            android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+      </intent-filter>
     </receiver>
     <activity
       android:name=".MyFileActivity"

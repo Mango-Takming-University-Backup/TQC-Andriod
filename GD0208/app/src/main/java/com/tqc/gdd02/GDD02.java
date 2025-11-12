@@ -160,10 +160,10 @@ public class GDD02 extends Activity
     {
       //  利用DownloadManager.Request下載傳入的圖片網址
       // TO DO
-      DownloadManager.Request request = null; // TO DO
-
-      //  指定DownloadManager.Request屬性為允許WIFI以及行動網路皆可下載。
+      DownloadManager.Request request = new
+      DownloadManager.Request(Uri.parse(url));
       // TO DO
+      request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
       request.setAllowedOverRoaming(false);
       request.setTitle("我的檔案下載管理員");
       request.setDescription("使用DownloadManager下載圖檔");
@@ -172,7 +172,7 @@ public class GDD02 extends Activity
 
       //  利用DownloadManager將建立的DownloadManager.Request加入下載佇列，並取得其下載識別碼(long型別)存於downloadReference變數中
       // TO DO
-
+      downloadReference=downloadManager.enqueue(request);
       SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(GDD02.this);
       SharedPreferences.Editor editor = settings.edit();
       editor.putLong(Constants.EXTRA_KEY_DOWNLOAD_REFERENCE, downloadReference);

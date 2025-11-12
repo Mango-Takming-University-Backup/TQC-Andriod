@@ -44,7 +44,10 @@ public class MyFileActivity extends Activity
           {
             //  修改MyFileActivity中ImageView的圖檔，當開啟Activity時，置換圖檔為已下載的圖檔路徑。
             // TO DO
-
+            Uri uri=Uri.parse(settings.getString(Constants.EXTRA_KEY_DOWNLOAD_FILE_PATH,""));
+            FileInputStream fin=new FileInputStream(uri.getPath());
+            Drawable pic=Drawable.createFromStream(fin,"pic");
+            mImageView01.setImageDrawable(pic);
            }
           catch(Exception e)
           {

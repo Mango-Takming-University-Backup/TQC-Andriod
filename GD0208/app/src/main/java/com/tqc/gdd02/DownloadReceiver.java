@@ -35,12 +35,16 @@ public class DownloadReceiver extends BroadcastReceiver
         {
           //  於DownloadReceiver.java捕捉下載完成廣播訊息，並利用DownloadManager與下載識別碼(long型別)取得其下載的Content URI路徑。
           // TO DO
-          Uri uri = null; // TO DO
-
+          DownloadManager.Query query=new DownloadManager.Query();
+          query.setFilterById(downloadReference);
+          Cursor cur=downloadManager.query(query);
+          cur.moveToFirst();
+          Uri uri = Uri.parse(cur.getString(cur.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI)));
           String downloadPath = uri.toString();
           SharedPreferences.Editor editor = settings.edit();
           //  將已下載的Content URI路徑，轉成字串儲存至SharedPreferences變數Constants.EXTRA_KEY_DOWNLOAD_FILE_PATH中
           // TO DO
+          editor.putString(Constants.EXTRA_KEY_DOWNLOAD_FILE_PATH, downloadPath);
           editor.commit();
           Intent openIntent = new Intent(context, MyFileActivity.class);
           openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
