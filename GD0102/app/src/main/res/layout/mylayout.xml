@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:orientation="vertical" >
+  <TextView
+    android:id="@+id/tvBMI"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="20sp" >
+  </TextView>
+  <TextView
+    android:id="@+id/tvAdvice"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="20sp">
+  </TextView>
+  <Button
+    android:id="@+id/button1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="回上一頁">
+  </Button>
+</LinearLayout>
