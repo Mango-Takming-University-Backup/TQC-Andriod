@@ -79,7 +79,10 @@ public class GDD02 extends Activity
       {
         // 按下「重設」按鈕，清空下方ListView
         // TO DO
-
+        if (lst != null && adapter != null) {
+          lst.clear();
+          adapter.notifyDataSetChanged();
+        }
         mTextView01.setText(getString(R.string.app_name));
       }
     });
@@ -95,6 +98,7 @@ public class GDD02 extends Activity
         case API_MSG_PARSE_START:
           // 1. mTextView01顯示解析中，請稍候
           // TO DO
+          mTextView01.setText(getString(R.string.str_parsing));
           break;
         case API_MSG_PARSE_OK:
           mTextView01.setText(getString(R.string.str_parsing_ok));
@@ -104,7 +108,7 @@ public class GDD02 extends Activity
             {
               // 6. 呼叫updateListView()方法，更新ListView內容。
               // TO DO
-
+              updateListView((ArrayList<Station>) msg.obj);
             }
             catch(Exception e)
             {
@@ -140,7 +144,7 @@ public class GDD02 extends Activity
           ArrayList<Station> stations = parseJSON(strFileName);
           // 5. 解析完畢，利用執行敘mForegroundHandler傳送訊息Message.what為API_MSG_PARSE_OK，並將 stations 傳入MyHandlerCallback處理。
           // TO DO
-
+          mForegroundHandler.obtainMessage(API_MSG_PARSE_OK, stations).sendToTarget();
         }
         catch (Exception e)
         {
@@ -158,7 +162,7 @@ public class GDD02 extends Activity
     try
     {
       // 2. 透過getAssets()將/assets/myjson.json檔案載入後，轉型為 InputStream 物件。
-      InputStream is = null; // TO DO
+      InputStream is = getAssets().open("myjson.json"); // TO DO
 
       int size = is.available();
       byte[] buffer = new byte[size];
@@ -172,8 +176,16 @@ public class GDD02 extends Activity
       currentObject.origin = "起站名";
       currentObject.destination = "終站名";
       */
-
-
+      JSONObject all = new JSONObject(strJSON);
+      JSONArray ja = all.getJSONObject("result").getJSONArray("results");
+      stations = new ArrayList<>();
+      for (int i=0; i<ja.length(); i++) {
+        JSONObject st = ja.getJSONObject(i);
+        currentObject = new Station();
+        currentObject.origin = st.getString("Station");
+        currentObject.destination = st.getString("Destination");
+        stations.add(currentObject);
+      }
     }
     catch (Exception e)
     {
@@ -199,13 +211,20 @@ public class GDD02 extends Activity
       for(int i = 0; i < stations.size(); i++)
       {
          // TO DO
+        Station st = stations.get(i);
+        String ss = String.format("%s->%s", st.origin, st.destination);
+        lst.add(ss);
        }
       adapter = new ArrayAdapter<String>(GDD02.this, android.R.layout.simple_list_item_1, lst);
       mListView01.setAdapter(adapter);
       // 8. 為ListView設定點選選項時，將選中的品項以Toast訊息方式顯示於畫面中：「你選擇的是:xxx」
       // TO DO
-
-
+      mListView01.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+          Toast.makeText(GDD02.this, "你選擇的是" + lst.get(position), Toast.LENGTH_SHORT).show();
+        }
+      });
     }
   }
 
