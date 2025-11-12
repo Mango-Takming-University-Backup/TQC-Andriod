@@ -46,27 +46,32 @@ public void onClick(View v)
 private String format(double num)
         {
         // TO DO
-
-
-        return " ";
-
+        return String.format("%.2f",num);
         }
 
 //取得BMI值
 private String getBMI (double height, double weight)
         {
         // TO DO
-
-
-        return " ";
+        double bmi=weight/(height*height);
+        return getString(R.string.report_result)+format(bmi);
         }
 
 //依BMI值取得建議
-private String getAdvice (String Sex, double height, double weight)
-        {
+private String getAdvice (String Sex, double height, double weight) {
         // TO DO
-
-
-        return " ";
+        double bmi=weight/(height*height);
+        String msg="";
+        if (Sex.equals("M")) {
+                if (bmi > 25.0) msg=getString(R.string.advice_heavy);
+                else if (bmi < 20.0) msg=getString(R.string.advice_light);
+                else msg=getString(R.string.advice_average);
         }
+        else {
+                if (bmi > 22.0) msg=getString(R.string.advice_heavy);
+                else if (bmi < 18.0) msg=getString(R.string.advice_light);
+                else msg=getString(R.string.advice_average);
         }
+        return msg;
+        }
+ }

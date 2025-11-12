@@ -4,7 +4,9 @@
   <string name="text1">身高(m)：</string>
   <string name="text2">體重(kg)：</string>
   <string name="text3">男性/女性：</string>
-
+  <string name="male">男性</string>
+  <string name="female">女性</string>
+  <string name="compute">計算</string>
   <string name="hello_world">Hello world!</string>
   <string name="action_settings">Settings</string>
 </resources>
