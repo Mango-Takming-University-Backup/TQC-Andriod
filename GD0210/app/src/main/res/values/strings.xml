@@ -1,0 +1,15 @@
+<resources>
+  <string name="app_name">臺北捷運列車到站站名</string>
+
+  <string name="label_url">網址</string>
+  <string name="hint_url">http://</string>
+  <string name="btn_parse">解析</string>
+  <string name="btn_reset">重設</string>
+
+  <string name="str_parsing">解析中，請稍候</string>
+  <string name="str_parsing_ok">解析成功</string>
+  <string name="str_user_choose">你選擇的是：</string>
+
+  <string name="hello_world">Hello world!</string>
+  <string name="action_settings">Settings</string>
+</resources>
