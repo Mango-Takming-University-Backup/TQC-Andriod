@@ -98,10 +98,11 @@ public class GDD03 extends Activity
       {
         // 6. 按下「重設」按鈕，清除 ListView 與 上方TextView顯示為「台北市運動中心」文字。
        // TO DO
-
-
-
-
+        mTextView01.setText(getString(R.string.app_name));
+        if (mList != null && adapter != null) {
+            mList.clear();
+            adapter.notifyDataSetChanged();
+        }
       }
     });
   }
@@ -159,11 +160,21 @@ public class GDD03 extends Activity
 
       // 3. 變更網路狀態改變時，開啟網路以Toast顯示「WiFi已連線」，關閉網路時，以Toast顯示「失去網路連線」。
       // TO DO
-
+        if (wifiConnected || mobileConnected) {
+            refreshDisplay = true;
+            Toast.makeText(GDD03.this, getString(R.string.wifi_connected), Toast.LENGTH_SHORT).show();
+        }
 
       // 4. 關閉網路後 (當失去連線)，清除ListView內容
       // TO DO
-
+        else {
+            refreshDisplay = false;
+            Toast.makeText(GDD03.this, getString(R.string.lost_connection), Toast.LENGTH_SHORT).show();
+            if (mList != null && adapter != null) {
+                mList.clear();
+                adapter.notifyDataSetChanged();
+            }
+        }
 
     }
   }
@@ -212,7 +223,12 @@ public class GDD03 extends Activity
         //5. 處理Taipei Open Data台北市運動中心API JSON物件，顯示於ListView當中。
         // Hint: JSONArray與mList.add("")
         // TO DO
-
+        JSONArray ja = new JSONObject(result).getJSONObject("result").getJSONArray("results");
+        for (int i=0; i<ja.length(); i++) {
+              JSONObject st = ja.getJSONObject(i);
+              String str = st.getString("名稱") + "\n" + st.getString("地址");
+              mList.add(str);
+          }
 
         adapter = new ArrayAdapter<String>(GDD03.this, android.R.layout.simple_list_item_1, mList);
         mListView01.setAdapter(adapter);
@@ -294,8 +310,9 @@ public class GDD03 extends Activity
   {
     super.onResume();
       // 1. 主程式onResume()時，註冊一BroadcastReceiver (receiver物件)，捕捉一個事件："android.net.conn.CONNECTIVITY_CHANGE"，當發生網路連線事件或網路連線改變事件時，被自訂的NetworkReceiver()接收廣播訊息。
-
-
+      IntentFilter itf = new IntentFilter();
+      itf.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+      registerReceiver(receiver, itf);
   }
 
   @Override
@@ -303,6 +320,6 @@ public class GDD03 extends Activity
   {
     super.onPause();
     // 2. 承1.離開程式呼叫onPause()，反註冊receiver物件。
-
+    unregisterReceiver(receiver);
   }
 }
